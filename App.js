@@ -1,9 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as signalR from '@microsoft/signalr';
 import IndecisionApi from './src/api/IndecisionApi';
 import Home from './src/components/Home/Home';
+import CreateRoom from './src/components/CreateRoom/CreateRoom';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [connection, setConnection] = useState(null);
@@ -19,16 +24,26 @@ export default function App() {
     });
   }, []);
 
+  const HomeScreenComponent = ({ navigation }) => {
+    return (
+      <View style={styles.container}>
+        {connection != null && <Home connection={connection} navigation={navigation} />}
+        {connection == null && (
+          <View>
+            <Text>Unable to connect to the server. Please close the app and try again.</Text>
+          </View>
+        )}
+      </View>
+    );
+  };
+
   return (
-    <View style={styles.container}>
-      {connection != null && <Home connection={connection} />}
-      {connection == null && (
-        <View>
-          <Text>Unable to connect to the server. Please close the app and try again.</Text>
-        </View>
-      )}
-      {/* <StatusBar style="auto" /> */}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreenComponent} />
+        <Stack.Screen name="Create" component={CreateRoom} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

@@ -1,16 +1,15 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View, Platform } from 'react-native';
 
 import IndecisionApi from '../../../src/api/IndecisionApi';
 import JoinRoomAlert from '../Alerts/JoinRoomAlert';
 
-const Home = (props) => {
-  let connection = props.connection;
-
+const Home = ({ connection, navigation }) => {
   useEffect(() => {
     connection.on('createRoom', (data) => {
       console.log(`Connection ID: ${data.ConnectionId}`);
       console.log(`Room ${data.RoomId} created`);
+      navigation.navigate('Room', { roomId: data.RoomId });
     });
 
     connection.on('joinRoom', (data) => {
