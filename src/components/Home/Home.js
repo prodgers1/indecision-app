@@ -3,13 +3,14 @@ import { Button, StyleSheet, Text, View, Platform } from 'react-native';
 
 import IndecisionApi from '../../../src/api/IndecisionApi';
 import JoinRoomAlert from '../Alerts/JoinRoomAlert';
+import * as Constants from '../../Constants';
 
 const Home = ({ connection, navigation }) => {
   useEffect(() => {
     connection.on('createRoom', (data) => {
       console.log(`Connection ID: ${data.ConnectionId}`);
       console.log(`Room ${data.RoomId} created`);
-      navigation.navigate('Room', { roomId: data.RoomId });
+      navigation.navigate(Constants.ROUTES.CreateRoom, { roomId: data.RoomId });
     });
 
     connection.on('joinRoom', (data) => {

@@ -7,6 +7,7 @@ import * as signalR from '@microsoft/signalr';
 import IndecisionApi from './src/api/IndecisionApi';
 import Home from './src/components/Home/Home';
 import CreateRoom from './src/components/CreateRoom/CreateRoom';
+import * as Constants from './src/Constants';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,8 +41,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreenComponent} />
-        <Stack.Screen name="Create" component={CreateRoom} />
+        <Stack.Screen name={Constants.ROUTES.Home} component={HomeScreenComponent} />
+        <Stack.Screen name={Constants.ROUTES.CreateRoom} component={CreateRoom} title="Create" />
       </Stack.Navigator>
     </NavigationContainer>
   );
