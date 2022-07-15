@@ -24,7 +24,6 @@ const Home = ({ connection, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Indecision</Text>
       {connection != null && (
         <View style={styles.buttonContainer}>
           <Text>Connection Id: {connection.connectionId}</Text>

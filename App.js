@@ -41,7 +41,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={Constants.ROUTES.Home} component={HomeScreenComponent} />
+        <Stack.Screen name={Constants.ROUTES.Home} component={HomeScreenComponent} title="Indecision" />
         <Stack.Screen name={Constants.ROUTES.CreateRoom} component={CreateRoom} title="Create" />
       </Stack.Navigator>
     </NavigationContainer>
