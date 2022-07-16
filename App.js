@@ -8,6 +8,8 @@ import IndecisionApi from './src/api/IndecisionApi';
 import Home from './src/components/Home/Home';
 import CreateRoom from './src/components/CreateRoom/CreateRoom';
 import * as Constants from './src/Constants';
+import ShareRoom from './src/components/ShareRoom/ShareRoom';
+import DataStore from './src/store/DataStore';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +31,7 @@ export default function App() {
   const HomeScreenComponent = ({ navigation }) => {
     return (
       <View style={styles.container}>
-        {connection != null && <Home connection={connection} navigation={navigation} />}
+        {connection != null && <Home navigation={navigation} connection={connection} />}
         {connection == null && (
           <View>
             <Text>Unable to connect to the server. Please close the app and try again.</Text>
@@ -43,7 +45,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name={Constants.ROUTES.Home} component={HomeScreenComponent} title="Indecision" />
-        <Stack.Screen name={Constants.ROUTES.CreateRoom} component={CreateRoom} title="Create" />
+        <Stack.Screen name={Constants.ROUTES.CreateRoom} component={CreateRoom} title="Create Room" />
+        <Stack.Screen name={Constants.ROUTES.ShareRoom} component={ShareRoom} title="Share Room" />
       </Stack.Navigator>
     </NavigationContainer>
   );
