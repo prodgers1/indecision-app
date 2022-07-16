@@ -7,19 +7,13 @@ import * as Constants from '../../Constants';
 
 const Home = ({ connection, navigation }) => {
   useEffect(() => {
-    connection.on('createRoom', (data) => {
-      console.log(`Connection ID: ${data.ConnectionId}`);
-      console.log(`Room ${data.RoomId} created`);
-      navigation.navigate(Constants.ROUTES.CreateRoom, { roomId: data.RoomId });
-    });
-
     connection.on('joinRoom', (data) => {
       console.log(`Connection ID ${data.ConnectionId} joining room ${data.RoomId}`);
     });
   }, []);
 
   const createRoom = async () => {
-    await IndecisionApi.createRoom(connection.connectionId);
+    navigation.navigate(Constants.ROUTES.CreateRoom, { connection: connection });
   };
 
   return (

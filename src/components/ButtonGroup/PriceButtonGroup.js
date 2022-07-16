@@ -23,7 +23,7 @@ const PriceButtonGroup = ({ values, setValues }) => {
         return (
           <View style={styles.buttonContainer}>
             <Pressable
-              style={{ padding: 3, borderRadius: 5, backgroundColor: values.indexOf(i) != -1 ? '#00FF00' : '#fff' }}
+              style={[styles.button, { backgroundColor: values.indexOf(i) != -1 ? '#00FF00' : '#fff' }]}
               onPress={() => toggleValue(i)}
             >
               <Text style={styles.buttonText}>{'$'.repeat(i)}</Text>
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     margin: 4,
+  },
+  button: {
+    padding: 5,
+    borderRadius: 5,
   },
   buttonText: {
     color: 'black',
