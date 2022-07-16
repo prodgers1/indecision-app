@@ -17,6 +17,7 @@ export default function App() {
   useEffect(() => {
     const conn = new signalR.HubConnectionBuilder()
       .withUrl(IndecisionApi.getBaseApiUrl())
+      .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build();
 

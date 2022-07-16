@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Text, View, StyleSheet, Linking, Dimensions } from 'react-native';
+import { ActivityIndicator, Button, Text, View, StyleSheet, Linking, Dimensions, Pressable } from 'react-native';
 import * as Location from 'expo-location';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
+import Slider from '@react-native-community/slider';
+import PriceButtonGroup from '../ButtonGroup/PriceButtonGroup';
+import { SafeAreaView, ScrollView } from 'react-native-web';
 
 const Room = ({ route, navigation }) => {
   const { roomId } = route.params;
@@ -11,6 +14,8 @@ const Room = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [coords, setCoords] = useState({});
+  const [radius, setRadius] = useState(1);
+  const [values, setValues] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -73,7 +78,7 @@ const Room = ({ route, navigation }) => {
               }}
               onPress={(e) => {
                 setCoords(e.nativeEvent.coordinate);
-                console.log(e.nativeEvent.coordinate);
+                // console.log(e.nativeEvent.coordinate);
               }}
               style={styles.map}
             >
@@ -81,7 +86,28 @@ const Room = ({ route, navigation }) => {
             </MapView>
           </View>
           <View>
-            <Text>Hi</Text>
+            <Text>Drag to select distance from pin</Text>
+            <Slider
+              style={styles.radiusSlider}
+              minimumValue={1}
+              maximumValue={10}
+              minimumTrackTintColor="#000000"
+              maximumTrackTintColor="#FFFFFF"
+              onValueChange={(r) => setRadius(r)}
+              step={1}
+            />
+            <Text>
+              {radius == 1 && '1 Mile'}
+              {radius > 1 && `${radius} Miles`}
+            </Text>
+          </View>
+          <View>
+            <PriceButtonGroup values={values} setValues={setValues} />
+          </View>
+          <View>
+            <Pressable style={styles.createButton}>
+              <Text style={styles.createText}>Create</Text>
+            </Pressable>
           </View>
         </View>
       )}
@@ -93,10 +119,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
   },
   label: {
     fontSize: 16,
+    marginLeft: 40,
+    marginBottom: 5,
   },
   errorContainer: {
     padding: 15,
@@ -113,6 +141,20 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height / 3,
+  },
+  radiusSlider: {
+    width: Dimensions.get('window').width * 0.8,
+    height: 45,
+  },
+  createButton: {
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 10,
+    width: Dimensions.get('window').width * 0.9,
+  },
+  createText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
