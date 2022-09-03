@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_API_URL = 'http://192.168.0.19:7071/api';
+const BASE_API_URL = 'http://192.168.0.61:7071/api';
 
 export default {
   getBaseApiUrl() {

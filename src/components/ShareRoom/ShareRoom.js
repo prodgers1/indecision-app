@@ -8,7 +8,6 @@ const ShareRoom = ({ route, navigation }) => {
   useEffect(() => {
     const getData = async () => {
       let data = await DataStore.getSearchData();
-      console.log(data);
       setSearchData(data);
     };
     getData();
